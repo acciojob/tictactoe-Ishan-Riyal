@@ -33,7 +33,7 @@ function submit() {
 // Update turn message
 function updateMessage() {
   messageEl.textContent =
-    currentPlayer === "X" ? `${player1}, you are up` : `${player2}, you are up`;
+    currentPlayer === "X" ? `${player1}, you're up` : `${player2}, you're up`;
 }
 
 // Handle each cell click
