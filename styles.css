@@ -19,12 +19,18 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.hidden {
-  display: none;
+.name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#game-screen {
-  display: block;
+#submit {
+  width: 80%;
+}
+
+.hidden {
+  display: none;
 }
 
 input {
