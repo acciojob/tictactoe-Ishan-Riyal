@@ -23,6 +23,10 @@ body {
   display: none;
 }
 
+#game-screen {
+  display: block;
+}
+
 input {
   display: block;
   margin: 10px auto;
