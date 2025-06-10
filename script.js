@@ -1,7 +1,7 @@
 const startScreen = document.getElementById("start-screen");
 const gameScreen = document.getElementById("game-screen");
 const submitBtn = document.getElementById("submit");
-
+const errorEl = document.getElementById("error");
 const messageEl = document.getElementById("message");
 const cells = document.querySelectorAll(".cell");
 const restartBtn = document.getElementById("restart");
@@ -13,14 +13,16 @@ let player2 = "";
 let gameOver = false;
 
 submitBtn.addEventListener("click", () => {
-  player1 = document.getElementById("player1").value.trim();
-  player2 = document.getElementById("player2").value.trim();
+  player1 = document.getElementById("player-1").value.trim() || "Player 1";
+  player2 = document.getElementById("player-2").value.trim() || "Player 2";
 
   if (!player1 || !player2) {
-    alert("Please enter both player names");
+    errorEl.textContent = "Please enter both player names";
+    errorEl.classList.remove("hidden");
     return;
   }
 
+  errorEl.classList.add("hidden");
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
   updateMessage();
@@ -44,16 +46,18 @@ function handleMove(cell) {
 
   if (checkWinner()) {
     const winner = currentPlayer === "X" ? player1 : player2;
-    messageEl.textContent = `${winner} congratulations you won!`;
+    messageEl.textContent = `${winner}, congratulations you won!`;
     gameOver = true;
     restartBtn.classList.remove("hidden");
+    disableBoard();
     return;
   }
 
   if (board.every((cell) => cell !== "")) {
-    messageEl.textContent = `It's a draw`;
+    messageEl.textContent = "It's a draw";
     gameOver = true;
     restartBtn.classList.remove("hidden");
+    disableBoard();
     return;
   }
 
@@ -78,6 +82,10 @@ function checkWinner() {
   );
 }
 
+function disableBoard() {
+  cells.forEach((cell) => cell.classList.add("inactive"));
+}
+
 restartBtn.addEventListener("click", () => {
   currentPlayer = "X";
   board = Array(9).fill("");
@@ -85,6 +93,7 @@ restartBtn.addEventListener("click", () => {
 
   cells.forEach((cell) => {
     cell.textContent = "";
+    cell.classList.remove("inactive");
   });
 
   restartBtn.classList.add("hidden");
