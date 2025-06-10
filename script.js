@@ -16,8 +16,8 @@ let gameOver = false;
 submitBtn.addEventListener("click", submit);
 
 function submit() {
-  player1 = document.getElementById("player-1").value.trim();
-  player2 = document.getElementById("player-2").value.trim();
+  player1 = document.getElementById("player1").value.trim();
+  player2 = document.getElementById("player2").value.trim();
 
   if (!player1 || !player2) {
     alert("Please enter both player names");
