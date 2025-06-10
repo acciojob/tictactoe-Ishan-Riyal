@@ -32,7 +32,7 @@ button {
 
 .cell {
   width: 100px;
-  height: 100px;
+  height: 100px; /* <-- make sure this is present */
   border: 2px solid #333;
   font-size: 48px;
   display: flex;
