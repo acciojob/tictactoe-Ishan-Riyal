@@ -12,10 +12,7 @@ let player1 = "";
 let player2 = "";
 let gameOver = false;
 
-// Handle Name Submission
-submitBtn.addEventListener("click", submit);
-
-function submit() {
+submitBtn.addEventListener("click", () => {
   player1 = document.getElementById("player1").value.trim();
   player2 = document.getElementById("player2").value.trim();
 
@@ -26,25 +23,20 @@ function submit() {
 
   startScreen.classList.add("hidden");
   gameScreen.classList.remove("hidden");
-
   updateMessage();
-}
+});
 
-// Update turn message
 function updateMessage() {
   messageEl.textContent =
     currentPlayer === "X" ? `${player1}, you're up` : `${player2}, you're up`;
 }
 
-// Handle each cell click
 cells.forEach((cell) => {
   cell.addEventListener("click", () => handleMove(cell));
 });
 
-// Handle a move
 function handleMove(cell) {
   const index = parseInt(cell.id) - 1;
-
   if (board[index] || gameOver) return;
 
   board[index] = currentPlayer;
@@ -54,14 +46,14 @@ function handleMove(cell) {
     const winner = currentPlayer === "X" ? player1 : player2;
     messageEl.textContent = `${winner} congratulations you won!`;
     gameOver = true;
-    showRestartButton();
+    restartBtn.classList.remove("hidden");
     return;
   }
 
   if (board.every((cell) => cell !== "")) {
     messageEl.textContent = `It's a draw`;
     gameOver = true;
-    showRestartButton();
+    restartBtn.classList.remove("hidden");
     return;
   }
 
@@ -69,17 +61,16 @@ function handleMove(cell) {
   updateMessage();
 }
 
-// Check win condition
 function checkWinner() {
   const winPatterns = [
     [0, 1, 2],
     [3, 4, 5],
-    [6, 7, 8], // rows
+    [6, 7, 8],
     [0, 3, 6],
     [1, 4, 7],
-    [2, 5, 8], // cols
+    [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6], // diagonals
+    [2, 4, 6],
   ];
 
   return winPatterns.some((pattern) =>
@@ -87,16 +78,7 @@ function checkWinner() {
   );
 }
 
-// Show restart button
-function showRestartButton() {
-  restartBtn.classList.remove("hidden");
-}
-
-// Handle restart
-restartBtn.addEventListener("click", resetGame);
-
-// Reset game
-function resetGame() {
+restartBtn.addEventListener("click", () => {
   currentPlayer = "X";
   board = Array(9).fill("");
   gameOver = false;
@@ -107,4 +89,4 @@ function resetGame() {
 
   restartBtn.classList.add("hidden");
   updateMessage();
-}
+});

@@ -1,19 +1,33 @@
-/*  your css code here. If applicable */
-body {
+* {
+  box-sizing: border-box;
   font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
 }
 
-.container {
+body {
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
   text-align: center;
 }
 
+.container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+  display: none;
+}
+
 input {
+  display: block;
+  margin: 10px auto;
   padding: 10px;
-  margin: 5px;
-  font-size: 16px;
+  width: 80%;
 }
 
 button {
@@ -32,26 +46,16 @@ button {
 
 .cell {
   width: 100px;
-  height: 100px; /* <-- make sure this is present */
-  border: 2px solid #333;
-  font-size: 48px;
+  height: 100px;
+  background: #e3e3e3;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  font-size: 36px;
   cursor: pointer;
-}
-
-.hidden {
-  display: none;
 }
 
 .message {
   font-size: 20px;
-  margin-top: 10px;
-}
-
-#restart {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
+  margin: 15px 0;
 }
