@@ -1,11 +1,11 @@
 const playersForm = document.querySelector(".players-form");
 const game = document.querySelector(".game");
-const btn = document.getElementById("submit"); // FIXED
+const btn = document.getElementById("submit");
 const restart = document.querySelector(".restart");
 
-const player1 = document.getElementById("player-1");
-const player2 = document.getElementById("player-2");
-const messageDiv = document.querySelector(".message"); // FIXED
+const player1 = document.getElementById("player1");
+const player2 = document.getElementById("player2");
+const messageDiv = document.querySelector(".message");
 const gridItems = document.querySelectorAll(".grid-item");
 
 let currentPlayerName = "";
