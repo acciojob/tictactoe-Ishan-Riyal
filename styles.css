@@ -68,7 +68,7 @@ body {
   border-color: #1c92d2;
 }
 
-.btn {
+#submit {
   font-size: 2rem;
   padding: 1.2rem 2.4rem;
   background-color: #1c92d2;
@@ -80,16 +80,16 @@ body {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.btn:hover {
+#submit:hover {
   background-color: #156ca4;
   transform: scale(1.05);
 }
 
-.btn:active {
+#submit:active {
   transform: scale(0.9);
 }
 
-.active-player {
+.message {
   font-size: 3rem;
   color: white;
   margin-top: 2.3rem;

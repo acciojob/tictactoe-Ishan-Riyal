@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
   </head>
   <body>
-    <h1 class="title">Tic Tac Toe</h1>
-
     <div class="container">
+      <h1 class="title">Tic Tac Toe</h1>
+      <!-- Name Input Form -->
       <div class="players-form">
         <div class="form-input">
           <label for="player-1">Player 1:</label>
@@ -34,22 +34,25 @@
           />
         </div>
 
-        <button class="btn">Start Game</button>
+        <!-- Changed button to have id="submit" -->
+        <button id="submit">Start Game</button>
       </div>
 
+      <!-- Game Area (initially hidden) -->
       <div class="game hidden">
-        <p class="active-player">xxx, you're up</p>
+        <div class="message">xxx, you're up</div>
 
+        <!-- 3x3 Grid with IDs 1–9 -->
         <div class="grid">
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
-          <div class="grid-item"></div>
+          <div class="grid-item" id="1"></div>
+          <div class="grid-item" id="2"></div>
+          <div class="grid-item" id="3"></div>
+          <div class="grid-item" id="4"></div>
+          <div class="grid-item" id="5"></div>
+          <div class="grid-item" id="6"></div>
+          <div class="grid-item" id="7"></div>
+          <div class="grid-item" id="8"></div>
+          <div class="grid-item" id="9"></div>
         </div>
 
         <button class="restart">Restart</button>
