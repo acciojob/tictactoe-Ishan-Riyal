@@ -1,96 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
+
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
 }
 
 body {
-  background-color: #f4f4f4;
-  margin: 0;
-  padding: 0;
+  font-family: "Bangers", sans-serif;
+  background: linear-gradient(to top, #d6f0fa, #1c92d2);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
   min-height: 100vh;
+  padding: 2.3rem;
+}
+
+.title {
+  font-size: 7rem;
+  color: white;
+  margin: 4.6rem 0;
 }
 
 .container {
-  max-width: 500px;
-  margin: 50px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 130rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.name {
+.players-form {
+  background: #d6f0fa;
+  padding: 2.5rem;
+  border-radius: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  max-width: 50rem;
+  width: 100%;
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-input label {
+  font-size: 2.3rem;
+  color: #1c92d2;
+}
+
+.form-input input {
+  padding: 1rem;
+  font-size: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.form-input input:focus {
+  border-color: #1c92d2;
+}
+
+.btn {
+  font-size: 2rem;
+  padding: 1.2rem 2.4rem;
+  background-color: #1c92d2;
+  color: white;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  margin-top: 2.3rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #156ca4;
+  transform: scale(1.05);
+}
+
+.btn:active {
+  transform: scale(0.9);
+}
+
+.active-player {
+  font-size: 3rem;
+  color: white;
+  margin-top: 2.3rem;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.58rem;
+  width: 34.5rem;
+  height: 34.5rem;
+  margin-top: 3.45rem;
+}
+
+.grid-item {
+  background: white;
+  border: 1px solid #000;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 10px 0;
+  font-size: 3.45rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.error {
-  color: red;
-  font-size: 14px;
-  margin: 10px 0;
+.grid-item:hover {
+  background: #f0f8ff;
+  transform: scale(1.05);
 }
 
 .hidden {
   display: none;
 }
 
-input {
-  display: block;
-  margin: 10px;
-  padding: 10px;
-  width: 80%;
-}
-
-button {
-  padding: 10px 20px;
+.restart {
+  padding: 10px 24px;
+  margin-top: 20px;
   font-size: 16px;
-  cursor: pointer;
-  background-color: #007bff;
+  font-weight: bold;
+  background: linear-gradient(to right, #1c92d2, #3aafe6);
   color: white;
   border: none;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #0056b3;
-}
-
-.board {
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  gap: 5px;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.cell {
-  width: 100px;
-  height: 100px;
-  background: #e3e3e3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 36px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
 }
 
-.cell:hover:not(.inactive) {
-  background: #d3d3d3;
+.restart:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  opacity: 0.95;
 }
 
-.cell.inactive {
-  cursor: not-allowed;
-  background: #f0f0f0;
-}
-
-.message {
-  font-size: 20px;
-  margin: 15px 0;
+.restart:active {
+  transform: scale(0.98);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  opacity: 0.85;
 }

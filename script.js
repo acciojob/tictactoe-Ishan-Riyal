@@ -1,101 +1,152 @@
-const startScreen = document.getElementById("start-screen");
-const gameScreen = document.getElementById("game-screen");
-const submitBtn = document.getElementById("submit");
-const errorEl = document.getElementById("error");
-const messageEl = document.getElementById("message");
-const cells = document.querySelectorAll(".cell");
-const restartBtn = document.getElementById("restart");
+const playersForm = document.querySelector(".players-form");
+const game = document.querySelector(".game");
+const btn = document.querySelector(".btn");
+const restart = document.querySelector(".restart");
 
+const player1 = document.getElementById("player-1");
+const player2 = document.getElementById("player-2");
+const activePlayer = document.querySelector(".active-player");
+const gridItems = document.querySelectorAll(".grid-item");
+
+let currentPlayerName = "";
 let currentPlayer = "X";
-let board = Array(9).fill("");
-let player1 = "";
-let player2 = "";
+let playerSymbols = {};
 let gameOver = false;
 
-submitBtn.addEventListener("click", () => {
- player1 = document.getElementById("player1").value.trim() || "Player 1";
-player2 = document.getElementById("player2").value.trim() || "Player 2";
+btn.addEventListener("click", startGame);
 
-  if (!player1 || !player2) {
-    errorEl.textContent = "Please enter both player names";
-    errorEl.classList.remove("hidden");
+function startGame() {
+  playersForm.classList.add("hidden");
+  game.classList.remove("hidden");
+
+  const name1 = player1.value.trim();
+  const name2 = player2.value.trim();
+
+  if (player1.value.trim() === "" || player2.value.trim() === "") {
+    alert("Please Enter Player Name");
     return;
   }
 
-  errorEl.classList.add("hidden");
-  startScreen.classList.add("hidden");
-  gameScreen.classList.remove("hidden");
-  updateMessage();
-});
+  // Randomly assign player who starts, but always give "X" to the starter
+  if (Math.random() < 0.5) {
+    currentPlayerName = name1;
+    playerSymbols = {
+      [name1]: "X",
+      [name2]: "O",
+    };
+  } else {
+    currentPlayerName = name2;
+    playerSymbols = {
+      [name2]: "X",
+      [name1]: "O",
+    };
+  }
 
-function updateMessage() {
-  messageEl.textContent =
-    currentPlayer === "X" ? `${player1}, you're up` : `${player2}, you're up`;
+  currentSymbol = "X";
+  gameOver = false;
+
+  activePlayer.textContent = `${currentPlayerName}, you're up`;
+
+  // Clear Previous Board
+  gridItems.forEach((cell) => {
+    cell.textContent = "";
+    cell.classList.remove("disabled");
+    cell.addEventListener("click", handleCellClick);
+  });
 }
 
-cells.forEach((cell) => {
-  cell.addEventListener("click", () => handleMove(cell));
-});
+function handleCellClick(e) {
+  const cell = e.target;
 
-function handleMove(cell) {
-  const index = parseInt(cell.id) - 1;
-  if (board[index] || gameOver) return;
+  if (gameOver || cell.textContent !== "") return;
 
-  board[index] = currentPlayer;
-  cell.textContent = currentPlayer;
+  // Mark Cell
+  cell.textContent = playerSymbols[currentPlayerName];
+  cell.classList.add("disabled");
 
+  // Check for winner
   if (checkWinner()) {
-    const winner = currentPlayer === "X" ? player1 : player2;
-    messageEl.textContent = `${winner}, congratulations you won!`;
+    activePlayer.textContent = `${currentPlayerName}, Congratulations you won!`;
     gameOver = true;
-    restartBtn.classList.remove("hidden");
-    disableBoard();
     return;
   }
 
-  if (board.every((cell) => cell !== "")) {
-    messageEl.textContent = "It's a draw";
+  // Check for Draw
+  if (checkDraw()) {
+    activePlayer.textContent = `It's a Draw`;
     gameOver = true;
-    restartBtn.classList.remove("hidden");
-    disableBoard();
     return;
   }
 
-  currentPlayer = currentPlayer === "X" ? "O" : "X";
-  updateMessage();
+  // Switch Player
+  switchPlayer();
+}
+
+function switchPlayer() {
+  currentPlayerName =
+    currentPlayerName === player1.value.trim()
+      ? player2.value.trim()
+      : player1.value.trim();
+
+  activePlayer.textContent = `${currentPlayerName}, you're up`;
 }
 
 function checkWinner() {
-  const winPatterns = [
-    [0, 1, 2],
+  const winCombinations = [
+    [0, 1, 2], // rows
     [3, 4, 5],
     [6, 7, 8],
-    [0, 3, 6],
+    [0, 3, 6], // columns
     [1, 4, 7],
     [2, 5, 8],
-    [0, 4, 8],
+    [0, 4, 8], // diagonals
     [2, 4, 6],
   ];
 
-  return winPatterns.some((pattern) =>
-    pattern.every((i) => board[i] === currentPlayer)
+  const currentSymbol = playerSymbols[currentPlayerName];
+
+  return winCombinations.some((combo) => {
+    return combo.every((index) => {
+      return gridItems[index].textContent === currentSymbol;
+    });
+  });
+}
+
+function checkDraw() {
+  return [...gridItems].every(
+    (cell) => cell.textContent === "X" || cell.textContent === "O"
   );
 }
 
-function disableBoard() {
-  cells.forEach((cell) => cell.classList.add("inactive"));
-}
+restart.addEventListener("click", restartGame);
 
-restartBtn.addEventListener("click", () => {
-  currentPlayer = "X";
-  board = Array(9).fill("");
+function restartGame() {
+  // Reset game state
   gameOver = false;
 
-  cells.forEach((cell) => {
-    cell.textContent = "";
-    cell.classList.remove("inactive");
-  });
+  // Always start with X again (optional: randomize if you prefer)
+  const name1 = player1.value.trim();
+  const name2 = player2.value.trim();
 
-  restartBtn.classList.add("hidden");
-  updateMessage();
-});
+  if (Math.random() < 0.5) {
+    currentPlayerName = name1;
+    playerSymbols = {
+      [name1]: "X",
+      [name2]: "O",
+    };
+  } else {
+    currentPlayerName = name2;
+    playerSymbols = {
+      [name2]: "X",
+      [name1]: "O",
+    };
+  }
+
+  activePlayer.textContent = `${currentPlayerName}, you're up`;
+
+  // Clear board and reset interaction
+  gridItems.forEach((cell) => {
+    cell.textContent = "";
+    cell.classList.remove("disabled");
+  });
+}
